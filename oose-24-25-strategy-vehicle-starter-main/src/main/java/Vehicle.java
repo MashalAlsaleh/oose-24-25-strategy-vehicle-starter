@@ -1,68 +1,78 @@
 public abstract class Vehicle {
-	
-	protected TravelBehaviour travelBehaviour;
-	protected MaintenanceBehaviour maintainBehaviour;
-	private double maintenanceBill;
-	private double distanceSinceLastService;
-	protected double maxSpeed;
-	
-	public Vehicle(TravelBehaviour travel, MaintenanceBehaviour maintain) {
-		this.travelBehaviour = travel;
-		this.maintainBehaviour = maintain;
-		this.maintenanceBill = 0;
-		this.distanceSinceLastService = 0;
-	}
 
-	public double travel(double timeTravelled) {
-		if (travelBehaviour != null) {
-			return travelBehaviour.travel(timeTravelled, this);
-		}
-		return 0;
-	}
+    protected TravelBehaviour travelBehaviour;
+    protected MaintenanceBehaviour maintainBehaviour;
+    protected InsuranceBehaviour insuranceBehaviour;
+    private double maintenanceBill;
+    private double distanceSinceLastService;
+    protected double maxSpeed;
 
-	public void maintain() {
-		if (maintainBehaviour != null) {
-			maintainBehaviour.maintainVehicle(this);
-		}
-	}
+    public Vehicle(TravelBehaviour travel, MaintenanceBehaviour maintain) {
+        this.travelBehaviour = travel;
+        this.maintainBehaviour = maintain;
+        this.insuranceBehaviour = new NoInsuranceBehaviour();
+        this.maintenanceBill = 0;
+        this.distanceSinceLastService = 0;
+    }
 
-	public double getVehicleSpeed() {
-		return maxSpeed;
-	}
+    public double travel(double timeTravelled) {
+        if (travelBehaviour != null) {
+            return travelBehaviour.travel(timeTravelled, this);
+        }
+        return 0;
+    }
 
-	public void setVehicleSpeed(double speed) {
-		this.maxSpeed = speed;
-	}
+    public void maintain() {
+        if (maintainBehaviour != null) {
+            maintainBehaviour.maintainVehicle(this);
+        }
+    }
 
-	public TravelBehaviour getTravel() {
-		return travelBehaviour;
-	}
+    public void setInsurance(InsuranceBehaviour insurance) {
+        this.insuranceBehaviour = insurance;
+    }
 
-	public void setTravel(TravelBehaviour travel) {
-		this.travelBehaviour = travel;
-	}
+    public InsuranceBehaviour getInsurance() {
+        return insuranceBehaviour;
+    }
 
-	public MaintenanceBehaviour getMaintain() {
-		return maintainBehaviour;
-	}
+    public double getVehicleSpeed() {
+        return maxSpeed;
+    }
 
-	public void setMaintain(MaintenanceBehaviour maintain) {
-		this.maintainBehaviour = maintain;
-	}
+    public void setVehicleSpeed(double speed) {
+        this.maxSpeed = speed;
+    }
 
-	public double getMaintenanceBill() {
-		return maintenanceBill;
-	}
+    public TravelBehaviour getTravel() {
+        return travelBehaviour;
+    }
 
-	public void setMaintenanceBill(double maintenanceBill) {
-		this.maintenanceBill = maintenanceBill;
-	}
+    public void setTravel(TravelBehaviour travel) {
+        this.travelBehaviour = travel;
+    }
 
-	public double getDistanceSinceLastService() {
-		return distanceSinceLastService;
-	}
+    public MaintenanceBehaviour getMaintain() {
+        return maintainBehaviour;
+    }
 
-	public void setDistanceSinceLastService(double distanceSinceLastService) {
-		this.distanceSinceLastService = distanceSinceLastService;
-	}
+    public void setMaintain(MaintenanceBehaviour maintain) {
+        this.maintainBehaviour = maintain;
+    }
+
+    public double getMaintenanceBill() {
+        return maintenanceBill;
+    }
+
+    public void setMaintenanceBill(double maintenanceBill) {
+        this.maintenanceBill = maintenanceBill;
+    }
+
+    public double getDistanceSinceLastService() {
+        return distanceSinceLastService;
+    }
+
+    public void setDistanceSinceLastService(double distanceSinceLastService) {
+        this.distanceSinceLastService = distanceSinceLastService;
+    }
 }
