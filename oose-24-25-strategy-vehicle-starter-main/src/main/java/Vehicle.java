@@ -6,21 +6,26 @@ public abstract class Vehicle {
 	private double distanceSinceLastService;
 	protected double maxSpeed;
 	
-	public Vehicle(TravelBehaviour travel, MaintenanceBehaviour maintain)
-	{
-
+	public Vehicle(TravelBehaviour travel, MaintenanceBehaviour maintain) {
+		this.travelBehaviour = travel;
+		this.maintainBehaviour = maintain;
+		this.maintenanceBill = 0;
+		this.distanceSinceLastService = 0;
 	}
-	
+
 	public double travel(double timeTravelled) {
+		if (travelBehaviour != null) {
+			return travelBehaviour.travel(timeTravelled, this);
+		}
 		return 0;
 	}
 
-	public void maintain()
-	{
-
+	public void maintain() {
+		if (maintainBehaviour != null) {
+			maintainBehaviour.maintainVehicle(this);
+		}
 	}
 
-	
 	public double getVehicleSpeed() {
 		return maxSpeed;
 	}
@@ -49,22 +54,15 @@ public abstract class Vehicle {
 		return maintenanceBill;
 	}
 
-	public void setMaintenaceBill(double maintenaceBill) {
-		this.maintenanceBill = maintenaceBill;
+	public void setMaintenanceBill(double maintenanceBill) {
+		this.maintenanceBill = maintenanceBill;
 	}
-
-
 
 	public double getDistanceSinceLastService() {
 		return distanceSinceLastService;
 	}
 
 	public void setDistanceSinceLastService(double distanceSinceLastService) {
-
 		this.distanceSinceLastService = distanceSinceLastService;
 	}
-
-	
-
-	
 }
